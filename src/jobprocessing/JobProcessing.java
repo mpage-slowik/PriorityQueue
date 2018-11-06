@@ -16,18 +16,30 @@ public class JobProcessing {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+
         UnsortedList list = new UnsortedList();
         
-        list.add("Hi");
-        list.add("Yo");
-        list.add("Hola");
-        System.out.println(list.toString());
-        list.remove();
-        System.out.println(list.toString());
-        list.remove("Hola");
-        System.out.println(list.toString());
-                
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(8);
+        list.add(4);
+        
+        list.remove(2);
+        System.out.println(list);
+        
+        ArrayHeap list2 = new ArrayHeap();
+
+        list2.add(1);
+        list2.add(2);
+        list2.add(3);
+        list2.add(8);
+        list2.add(4);
+        
+        list2.remove(2);
+
+        System.out.println(list2.toString());
+
     }
-    
+
 }
