@@ -16,6 +16,18 @@ public class JobProcessing {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        UnsortedList list = new UnsortedList();
+        
+        list.add("Hi");
+        list.add("Yo");
+        list.add("Hola");
+        System.out.println(list.toString());
+        list.remove();
+        System.out.println(list.toString());
+        list.remove("Hola");
+        System.out.println(list.toString());
+                
     }
     
 }

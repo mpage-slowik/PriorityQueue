@@ -1,15 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jobprocessing;
+
+import java.util.PriorityQueue;
 
 /**
  *
  * @author Max Page-Slowik
+ * @author Jesse Silber
+ * @param <E>
  */
-public class ArrayHeap
-{
-    
+public class ArrayHeap<E> extends PriorityQueue {
+
+    public ArrayHeap() {
+
+    }
 }
