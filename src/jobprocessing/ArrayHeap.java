@@ -37,6 +37,7 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
             arr[size] = (E) e;
             size++;
             upheap();
+            head = arr[0];
             return true;
         }
     }
@@ -52,10 +53,11 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
         } else {
             arr[index] = null;
             arr[index] = tail;
-            
+
             size--;
             tail = arr[size - 1];
             downheap();
+            head = arr[0];
         }
         return true;
     }

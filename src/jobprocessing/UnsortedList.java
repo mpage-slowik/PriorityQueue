@@ -8,13 +8,13 @@ import java.util.PriorityQueue;
  * @author Jesse Silber
  * @param <E>
  */
-public class UnsortedList<E> extends PriorityQueue {
+public class UnsortedList<E extends Comparable<E>> extends PriorityQueue {
 
     private E arr[];
     private int size;
 
     public UnsortedList() {
-        arr = (E[]) new Object[10];
+        arr = (E[]) new Comparable[10];
         size = 0;
     }
 
@@ -36,12 +36,20 @@ public class UnsortedList<E> extends PriorityQueue {
     }
 
     @Override
-    public Object remove() {
+    public Object remove() {//when i remove, find smallest and remove and return smallest prioriy
         if (isEmpty()) {
             return new IndexOutOfBoundsException("");
         } else {
-            E element = arr[0];
-            arr[0] = null;
+
+            int smallestIndex = 0;
+
+            for (int i = 1; i < size; i++) {
+                if (arr[i].compareTo(arr[smallestIndex]) < 1) {
+                    smallestIndex = i;
+                }
+            }
+            E element = arr[smallestIndex];
+            arr[smallestIndex] = null;
             shift();
             size--;
             return element;
@@ -80,7 +88,7 @@ public class UnsortedList<E> extends PriorityQueue {
     @Override
     public void clear() {
         size = 0;
-        arr = (E[]) new Object[10];
+        arr = (E[]) new Comparable[10];
     }
 
     @Override
@@ -104,10 +112,10 @@ public class UnsortedList<E> extends PriorityQueue {
 
     private void resize() {
         if (size >= arr.length - 2) {
-            E arr2[] = (E[]) new Object[(arr.length * 2)];
+            E arr2[] = (E[]) new Comparable[(arr.length * 2)];
             moveArray(arr2);
         } else if (Math.floor(arr.length / 4) > size) {
-            E arr2[] = (E[]) new Object[(arr.length / 2)];
+            E arr2[] = (E[]) new Comparable[(arr.length / 2)];
             moveArray(arr2);
         }
     }
@@ -120,7 +128,7 @@ public class UnsortedList<E> extends PriorityQueue {
     }
 
     private void shift() {
-        E arr2[] = (E[]) new Object[size];
+        E arr2[] = (E[]) new Comparable[size];
         int j = 0;
         for (int i = 0; i < size; i++) {
 
