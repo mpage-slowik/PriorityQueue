@@ -1,6 +1,5 @@
 package jobprocessing;
 
-import java.util.Iterator;
 import java.util.PriorityQueue;
 
 /**
@@ -141,11 +140,6 @@ public class UnsortedList<E> extends PriorityQueue {
             }
         }
         return false;
-    }
-
-    @Override
-    public Iterator iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
