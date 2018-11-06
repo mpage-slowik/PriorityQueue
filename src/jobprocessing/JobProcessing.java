@@ -36,7 +36,7 @@ public class JobProcessing {
         list2.add(job2);
         //list2.remove(job2);
         System.out.println(list2.toString());
-
+        PriorityQueueSimulatorTester.run();
     }
 
 }

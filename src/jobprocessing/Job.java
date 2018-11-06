@@ -169,7 +169,7 @@ public class Job implements Comparable<Job> {
 
     @Override
     public String toString() {
-        return "Job{" + "jobName=" + jobName + ", jobLength=" + jobLength + ", currentJobLength=" + currentJobLength + ", jobPriority=" + jobPriority + ", finalPriority=" + finalPriority + '}';
+        return "jobName=" + jobName + ", jobLength=" + jobLength+ ", jobPriority=" + jobPriority;
     }
 
     @Override
