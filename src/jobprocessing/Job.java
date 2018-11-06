@@ -5,13 +5,11 @@
  */
 package jobprocessing;
 
-import java.util.Comparator;
-
 /**
  *
  * @author Max Page-Slowik
  */
-public class Job implements Comparator<Job> {
+public class Job implements Comparable<Job> {
 
     private String jobName;
     private int jobLength;
@@ -175,16 +173,16 @@ public class Job implements Comparator<Job> {
     }
 
     @Override
-    public int compare(Job o1, Job o2) {
-        if (o1.getJobPriority() == o2.getJobPriority()) {
-            if (o1.getEntryTime() < o2.getEntryTime()) {
+    public int compareTo(Job o) {
+        if (this.getJobPriority() == o.getJobPriority()) {
+            if (this.getEntryTime() < o.getEntryTime()) {
                 return 1;
-            } else if (o1.getEntryTime() > o2.getEntryTime()) {
+            } else if (this.getEntryTime() > o.getEntryTime()) {
                 return -1;
             } else {
                 return 0;
             }
-        } else if (o1.getJobPriority() > o2.getJobPriority()) {
+        } else if (this.getJobPriority() > o.getJobPriority()) {
             return 1;
         } else {
             return -1;
