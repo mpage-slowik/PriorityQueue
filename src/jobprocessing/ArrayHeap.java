@@ -52,12 +52,17 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
         } else {
             arr[index] = null;
             arr[index] = tail;
-
+            
             size--;
             tail = arr[size - 1];
             downheap();
         }
         return true;
+    }
+
+    @Override
+    public Object poll() {
+        return remove(head);
     }
 
     @Override
@@ -129,11 +134,6 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
     @Override
     public Comparator comparator() {
         return super.comparator(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Object poll() {
-        return super.poll(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
