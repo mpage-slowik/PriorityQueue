@@ -18,12 +18,14 @@ public class PriorityQueueSimulatorTester {
         ArrayHeap<Job> arrh = new ArrayHeap<>();
         //Instantiate Unsorted List
         UnsortedList<Job> ul = new UnsortedList<>();
-        populateJobs(arrh);
+        Job[] jobsInputArray = new Job[maxNumberOfJobs[0]];
+        int totalTime = populateJobs(jobsInputArray);
+        populateQueue(jobsInputArray,arrh);
         //System.out.println(arrh.toString());
-        runCPU(arrh);
+        runCPU(arrh,totalTime);
     }
     
-    private static int populateJobs(PriorityQueue<Job> pq){
+    private static int populateJobs(Job[] jobInputArray){
         int totalTime =0;
         for(int i = 0; i<maxNumberOfJobs[0] ;i++){
             Job j = new Job();
@@ -35,20 +37,31 @@ public class PriorityQueueSimulatorTester {
             int jobPriority=(int)(Math.random()*40)+1;
             j.setJobPriority(jobPriority);
             j.setEntryTime(i+1);
-            pq.add(j);
+            jobInputArray[i] = j;
         }
         return totalTime;
     }
+    private static void populateQueue(Job[] jobInputArray,PriorityQueue<Job> pq){
+        for (Job job : jobInputArray) {
+            pq.add(job);
+        }
+    }
     //after 30 jobs search for oldest job and increase priority to 1
-    private static void runCPU(PriorityQueue<Job> pq){
-        int totalTime = 0;
-        for(int i = 0;i<pq.size() ;i++){
+    private static void runCPU(PriorityQueue<Job> pq,int totalTime){
+        int finishedJobs = 0;
+        for(int i = 0;i<totalTime ;i++){
+            if(finishedJobs%30==0 && finishedJobs!=0){
+               
+            }
             Job j = pq.remove();
             int time = j.getCurrentJobLength();
             time--;
             if(time >0){
                 j.setCurrentJobLength(time);
                 pq.add(j);
+            }
+            else{
+                finishedJobs++;
             }
         }
     }
