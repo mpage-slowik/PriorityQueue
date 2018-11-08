@@ -43,6 +43,18 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
     }
 
     @Override
+    public Object remove() {
+        E temp = head;
+        arr[0] = tail;
+        tail = arr[size - 2];
+        arr[size - 1] = null;
+        size--;
+        downheap();
+        head = arr[0];
+        return temp;
+    }
+
+    @Override
     public boolean remove(Object o) {
         if (size == 0) {
             return false;
@@ -53,7 +65,6 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
         } else {
             arr[index] = null;
             arr[index] = tail;
-
             size--;
             tail = arr[size - 1];
             downheap();
@@ -97,8 +108,7 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
     }
 
     private void downheap() {
-
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size / 2; i++) {
             if (arr[2 * i + 1] != null) {
                 if (arr[i].compareTo(arr[2 * i + 1]) > 0) {
                     E temp = arr[2 * i + 1];
@@ -174,8 +184,8 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
     }
 
     @Override
-    public Iterator iterator() {
-        return super.iterator(); //To change body of generated methods, choose Tools | Templates.
+    public Iterator<E> iterator() {
+        return new PQIterate();
     }
 
     @Override
@@ -191,6 +201,28 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
     @Override
     public boolean offer(Object e) {
         return super.offer(e); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private class PQIterate implements Iterator {
+
+        @Override
+        public Object next() {
+            
+            return arr[myCursor++];
+            
+        }
+
+        @Override
+        public boolean hasNext() {
+            return myCursor < size;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("remove not implemented");
+        }
+
+        private int myCursor = 0;
     }
 
 }

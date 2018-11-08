@@ -22,7 +22,7 @@ public class PriorityQueueSimulatorTester {
         int totalTime = populateJobs(jobsInputArray);
         populateQueue(jobsInputArray,arrh);
         //System.out.println(arrh.toString());
-        runCPU(arrh,totalTime);
+        runCPU(arrh,maxNumberOfJobs[0]);
     }
     
     private static int populateJobs(Job[] jobInputArray){
@@ -48,21 +48,41 @@ public class PriorityQueueSimulatorTester {
     }
     //after 30 jobs search for oldest job and increase priority to 1
     private static void runCPU(PriorityQueue<Job> pq,int totalTime){
-        int finishedJobs = 0;
-        for(int i = 0;i<totalTime ;i++){
-            if(finishedJobs%30==0 && finishedJobs!=0){
-               
-            }
+
+        int finishedJobs = 1;
+        int timer = totalTime;
+        for(int i = 0;i<pq.size() ;i++,timer++){
+            
             Job j = pq.remove();
+            System.out.println(j.toString());
             int time = j.getCurrentJobLength();
             time--;
             if(time >0){
                 j.setCurrentJobLength(time);
+                j.setWaitTime(timer);
                 pq.add(j);
+                i--;
             }
             else{
                 finishedJobs++;
+                j.setEndTime(timer);
+            }
+            if(finishedJobs%30==0){
+               starvedResource(pq);
             }
         }
+    }
+    private static void starvedResource(PriorityQueue<Job> pq){
+        long time = 0;
+        Job temp = new Job();
+        for(Job j:pq){
+        if(j.getEntryTime()>time){
+            time = j.getEntryTime();
+            temp = j;           
+        }
+        pq.remove(temp);
+        temp.setJobPriority(1);
+        pq.add(temp);
+    }
     }
 }

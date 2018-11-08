@@ -5,11 +5,13 @@
  */
 package jobprocessing;
 
+import java.util.Iterator;
+
 /**
  *
  * @author Max Page-Slowik
  */
-public class Job implements Comparable<Job> {
+public class Job implements Comparable<Job>{
 
     private String jobName;
     private int jobLength;
@@ -169,7 +171,7 @@ public class Job implements Comparable<Job> {
 
     @Override
     public String toString() {
-        return "jobName=" + jobName + ", jobLength=" + jobLength+ ", jobPriority=" + jobPriority;
+        return "jobName=" + jobName + ", currentJobLength=" + currentJobLength+ ", jobPriority=" + jobPriority;
     }
 
     @Override
