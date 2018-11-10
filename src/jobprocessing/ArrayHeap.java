@@ -43,14 +43,14 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
     }
 
     @Override
-    public Object remove() {
+    public E remove() {
         E temp = head;
-        arr[0] = tail;
-        tail = arr[size - 2];
-        arr[size - 1] = null;
-        size--;
-        downheap();
-        head = arr[0];
+            arr[0] = null;
+            arr[0] = tail;
+            size--;
+            tail = arr[size - 1];
+            downheap();
+            head = arr[0];
         return temp;
     }
 
