@@ -44,7 +44,7 @@ public class PriorityQueueSimulatorTester {
         return totalTime;
     }
 
-    private static void populateQueue(Job[] jobInputArray, PriorityQueue<Job> pq) {
+    private static void populateQueue(Job[] jobInputArray, ArrayHeap<Job> pq) {
         for (Job job : jobInputArray) {
             pq.add(job);
         }
