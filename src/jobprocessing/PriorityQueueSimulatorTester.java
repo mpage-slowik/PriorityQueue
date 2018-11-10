@@ -18,13 +18,15 @@ public class PriorityQueueSimulatorTester {
     public static void run() {
         //Instatiate Heap     
         ArrayHeap<Job> arrh = new ArrayHeap<>();
-        //Instantiate Unsorted List
-        UnsortedList<Job> ul = new UnsortedList<>();
+
         Job[] jobsInputArray = new Job[maxNumberOfJobs[0]];
         int totalTime = populateJobs(jobsInputArray);
         populateQueue(jobsInputArray, arrh);
         //System.out.println(arrh.toString());
         runCPU(arrh, maxNumberOfJobs[0]);
+
+        //Instantiate Unsorted List
+        //UnsortedList<Job> ul = new UnsortedList<>();
     }
 
     private static int populateJobs(Job[] jobInputArray) {
@@ -55,25 +57,40 @@ public class PriorityQueueSimulatorTester {
         int finishedJobs = 1;
         int timer = totalTime;
         for (int i = 0; i < pq.size(); i++, timer++) {
-
             Job j = pq.remove();
             System.out.println(j.toString());
             int time = j.getCurrentJobLength();
-            time--;
 
-            if (time >=0) {
+            time--;
+            // removed the time
+
+            if (time > 0) { //if theres move time re add
                 j.setCurrentJobLength(time);
                 j.setWaitTime(timer);
                 pq.add(j);
                 i--;
-            } else {
+            } else { //if 0, dont re add its done
                 finishedJobs++;
                 j.setEndTime(timer);
             }
             if (finishedJobs % 30 == 0) {
                 starvedResource(pq);
             }
+
+//            if (time >= 0) {
+//                j.setCurrentJobLength(time);
+//                j.setWaitTime(timer);
+//                pq.add(j);
+//                i--;
+//            } else {
+//                finishedJobs++;
+//                j.setEndTime(timer);
+//            }
+//            if (finishedJobs % 30 == 0) {
+//                starvedResource(pq);
+//            }
         }
+
     }
 
     private static void starvedResource(PriorityQueue<Job> pq) {
