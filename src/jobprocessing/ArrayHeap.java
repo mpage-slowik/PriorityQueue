@@ -33,25 +33,24 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
             return true;
         } else {
             resize();
-            tail = (E) e;
             arr[size] = (E) e;
             size++;
             upheap();
             head = arr[0];
+            tail = arr[size-1];
             return true;
         }
     }
 
     @Override
     public E remove() {
-        E temp = head;
-            arr[0] = null;
-            arr[0] = tail;
-            head = arr[0];
+        E temp = arr[0];
+            arr[0] = arr[size-1];
+            arr[size-1] = null;
             size--;
-            tail = arr[size - 1];
             downheap();
             head = arr[0];
+            tail = arr[size-1];
         return temp;
     }
 
@@ -65,12 +64,11 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
             return false;
         } else {
             arr[index] = null;
-            arr[index] = tail;
-            head = arr[index];
+            arr[index] = arr[size-1];
             size--;
-            tail = arr[size - 1];
             downheap();
             head = arr[0];
+            tail = arr[size - 1];
         }
         return true;
     }
