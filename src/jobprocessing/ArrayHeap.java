@@ -37,7 +37,7 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
             size++;
             upheap();
             head = arr[0];
-            tail = arr[size-1];
+            tail = arr[size - 1];
             return true;
         }
     }
@@ -45,12 +45,16 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
     @Override
     public E remove() {
         E temp = arr[0];
-            arr[0] = arr[size-1];
-            arr[size-1] = null;
-            size--;
-            downheap();
-            head = arr[0];
-            tail = arr[size-1];
+        arr[0] = arr[size - 1];
+        arr[size - 1] = null;
+        size--;
+        downheap();
+        head = arr[0];
+        try {
+            tail = arr[size - 1];
+        } catch (Exception e) {
+            System.out.println("");
+        }
         return temp;
     }
 
@@ -64,7 +68,7 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
             return false;
         } else {
             arr[index] = null;
-            arr[index] = arr[size-1];
+            arr[index] = arr[size - 1];
             size--;
             downheap();
             head = arr[0];
@@ -207,9 +211,9 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
 
         @Override
         public Object next() {
-            
+
             return arr[myCursor++];
-            
+
         }
 
         @Override

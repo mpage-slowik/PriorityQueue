@@ -56,19 +56,18 @@ public class PriorityQueueSimulatorTester {
     private static void runCPU(ArrayHeap<Job> pq, int totalTime) {
         int finishedJobs = 1;
         int timer = totalTime;
-        for (int i = 0; i < pq.size(); i++, timer++) {
+
+        while (pq.size() > 0) {
             Job j = pq.remove();
             System.out.println(j.toString());
             int time = j.getCurrentJobLength();
 
             time--;
-            // removed the time
 
             if (time > 0) { //if theres move time re add
                 j.setCurrentJobLength(time);
                 j.setWaitTime(timer);
                 pq.add(j);
-                i--;
             } else { //if 0, dont re add its done
                 finishedJobs++;
                 j.setEndTime(timer);
@@ -76,21 +75,8 @@ public class PriorityQueueSimulatorTester {
             if (finishedJobs % 30 == 0) {
                 starvedResource(pq);
             }
-
-//            if (time >= 0) {
-//                j.setCurrentJobLength(time);
-//                j.setWaitTime(timer);
-//                pq.add(j);
-//                i--;
-//            } else {
-//                finishedJobs++;
-//                j.setEndTime(timer);
-//            }
-//            if (finishedJobs % 30 == 0) {
-//                starvedResource(pq);
-//            }
+            timer++;
         }
-
     }
 
     private static void starvedResource(PriorityQueue<Job> pq) {
