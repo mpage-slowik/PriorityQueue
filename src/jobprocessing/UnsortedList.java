@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
  *
  * @author Max Page-Slowik
  * @author Jesse Silber
- * @param <E>
+ * @param <E> Any type that extends Comparable
  */
 public class UnsortedList<E extends Comparable<E>> extends PriorityQueue {
 

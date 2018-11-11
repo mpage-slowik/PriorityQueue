@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jobprocessing;
 
 import java.util.Iterator;
@@ -10,6 +5,7 @@ import java.util.Iterator;
 /**
  *
  * @author Max Page-Slowik
+ * @author Jesse Silber
  */
 public class Job implements Comparable<Job>{
 
@@ -28,7 +24,7 @@ public class Job implements Comparable<Job>{
     /**
      * Returns the name of the current job
      *
-     * @return
+     * @return Job name
      */
     public String getJobName() {
         return jobName;
@@ -37,7 +33,7 @@ public class Job implements Comparable<Job>{
     /**
      * Sets the job name
      *
-     * @param jobName
+     * @param jobName Job Name
      */
     public void setJobName(String jobName) {
         this.jobName = jobName;
@@ -46,7 +42,7 @@ public class Job implements Comparable<Job>{
     /**
      * Gets the total length of the job(CPU cycles) [1-70]
      *
-     * @return
+     * @return Job length
      */
     public int getJobLength() {
         return jobLength;
@@ -55,7 +51,7 @@ public class Job implements Comparable<Job>{
     /**
      * Sets the total length of the job(CPU cycles) [1-70]
      *
-     * @param jobLength
+     * @param jobLength Job length
      */
     public void setJobLength(int jobLength) {
         this.jobLength = jobLength;
@@ -64,7 +60,7 @@ public class Job implements Comparable<Job>{
     /**
      * Gets the remaining length
      *
-     * @return
+     * @return Current job length
      */
     public int getCurrentJobLength() {
         return currentJobLength;
@@ -73,7 +69,7 @@ public class Job implements Comparable<Job>{
     /**
      * Sets the remaining length
      *
-     * @param currentJobLength
+     * @param currentJobLength Current job length
      */
     public void setCurrentJobLength(int currentJobLength) {
         this.currentJobLength = currentJobLength;
@@ -82,7 +78,7 @@ public class Job implements Comparable<Job>{
     /**
      * Gets the initial priority the job [1-40]
      *
-     * @return
+     * @return Job Priority
      */
     public int getJobPriority() {
         return jobPriority;
@@ -91,7 +87,7 @@ public class Job implements Comparable<Job>{
     /**
      * Sets the initial priority [1-40]
      *
-     * @param jobPriority
+     * @param jobPriority Job priority
      */
     public void setJobPriority(int jobPriority) {
         this.jobPriority = jobPriority;
@@ -100,7 +96,7 @@ public class Job implements Comparable<Job>{
     /**
      * Gets the final priority at termination [1-40]
      *
-     * @return
+     * @return Final priority
      */
     public int getFinalPriority() {
         return finalPriority;
@@ -109,7 +105,7 @@ public class Job implements Comparable<Job>{
     /**
      * Sets the final priority at termination [1-40]
      *
-     * @param finalPriority
+     * @param finalPriority Final priority
      */
     public void setFinalPriority(int finalPriority) {
         this.finalPriority = finalPriority;
@@ -118,7 +114,7 @@ public class Job implements Comparable<Job>{
     /**
      * Gets the time entered the priority queue
      *
-     * @return
+     * @return Entry time
      */
     public long getEntryTime() {
         return entryTime;
@@ -127,7 +123,7 @@ public class Job implements Comparable<Job>{
     /**
      * Sets the entry time onto the priority queue
      *
-     * @param entryTime
+     * @param entryTime Entry time
      */
     public void setEntryTime(long entryTime) {
         this.entryTime = entryTime;
@@ -136,7 +132,7 @@ public class Job implements Comparable<Job>{
     /**
      * Gets the time which the job ended at
      *
-     * @return
+     * @return End time
      */
     public long getEndTime() {
         return endTime;
@@ -145,7 +141,7 @@ public class Job implements Comparable<Job>{
     /**
      * Sets the time which the job ended
      *
-     * @param endTime
+     * @param endTime End time
      */
     public void setEndTime(long endTime) {
         this.endTime = endTime;
@@ -154,7 +150,7 @@ public class Job implements Comparable<Job>{
     /**
      * Gets the time from which it was in the queue till the end of the job
      *
-     * @return
+     * @return Wait time
      */
     public long getWaitTime() {
         return waitTime;
@@ -163,7 +159,7 @@ public class Job implements Comparable<Job>{
     /**
      * Sets the time which the job waited from entering the queue to ending
      *
-     * @param waitTime
+     * @param waitTime Wait time
      */
     public void setWaitTime(long waitTime) {
         this.waitTime = waitTime;

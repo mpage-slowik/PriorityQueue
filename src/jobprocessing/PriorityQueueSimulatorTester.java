@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jobprocessing;
 
 import java.util.PriorityQueue;
@@ -10,6 +5,7 @@ import java.util.PriorityQueue;
 /**
  *
  * @author Max Page-Slowik
+ * @author Jesse Silber
  */
 public class PriorityQueueSimulatorTester {
 
@@ -23,23 +19,32 @@ public class PriorityQueueSimulatorTester {
         int totalTime = populateJobs(jobsInputArray);
 
         long startTime = System.currentTimeMillis();
-
         populateQueue(jobsInputArray, arrh);
-        //System.out.println(arrh.toString());
-        int[] numbers = runCPU(arrh, maxNumberOfJobs[0]);
-        long endTime = System.currentTimeMillis();
 
+        int[] numbers = runCPU(arrh, maxNumberOfJobs[0]);
+
+        long endTime = System.currentTimeMillis();
         long ellapsedTime = endTime - startTime;
 
-        //Print to file
-        System.out.println("Current system time (cycles): " + numbers[1]);
-        System.out.println("Total number of jobs executed: " + maxNumberOfJobs[0] + " jobs");
-        System.out.println("Average process waiting time: " + numbers[2]+ " cycles");
-        System.out.println("Total number of priority changes: " + numbers[0]);
-        System.out.println("Actual system time needed to execute all jobs: " + ellapsedTime + " ms");
-
         //Instantiate Unsorted List
-        //UnsortedList<Job> ul = new UnsortedList<>();
+        UnsortedList<Job> ul = new UnsortedList<>();
+
+        Job[] jobsInputArray2 = new Job[maxNumberOfJobs[0]];
+        int totalTime2 = populateJobs(jobsInputArray2);
+
+        long startTime2 = System.currentTimeMillis();
+        populateQueue(jobsInputArray2, ul);
+
+        int[] numbers2 = runCPU(ul, maxNumberOfJobs[0]);
+        long endTime2 = System.currentTimeMillis();
+        long ellapsedTime2 = endTime2 - startTime2;
+
+        //Print to file
+        System.out.println("Current system time (cycles): " + numbers2[1]);
+        System.out.println("Total number of jobs executed: " + maxNumberOfJobs[0] + " jobs");
+        System.out.println("Average process waiting time: " + numbers2[2] + " cycles");
+        System.out.println("Total number of priority changes: " + numbers2[0]);
+        System.out.println("Actual system time needed to execute all jobs: " + ellapsedTime + " ms");
     }
 
     private static int populateJobs(Job[] jobInputArray) {
@@ -66,8 +71,14 @@ public class PriorityQueueSimulatorTester {
         }
     }
 
+    private static void populateQueue(Job[] jobInputArray, UnsortedList<Job> pq) {
+        for (Job job : jobInputArray) {
+            pq.add(job);
+        }
+    }
+
     //after 30 jobs search for oldest job and increase priority to 1
-    private static int[] runCPU(ArrayHeap<Job> pq, int totalTime) {
+    private static int[] runCPU(PriorityQueue<Job> pq, int totalTime) {
         int finishedJobs = 1;
         int timer = totalTime;
         int priorityChange = 0;
@@ -78,10 +89,10 @@ public class PriorityQueueSimulatorTester {
             Job j = pq.remove();
             int time = j.getCurrentJobLength();
             time--;
-                    System.out.println("Now executing "+ j.getJobName()+". Job length: "+
-                    j.getJobLength()+" cycles; Current remaining length: "+
-                    j.getCurrentJobLength()+" cycles; Initial priority: "+
-                    j.getJobPriority()+"; Current priority: "+j.getFinalPriority());
+            System.out.println("Now executing " + j.getJobName() + ". Job length: "
+                    + j.getJobLength() + " cycles; Current remaining length: "
+                    + j.getCurrentJobLength() + " cycles; Initial priority: "
+                    + j.getJobPriority() + "; Current priority: " + j.getFinalPriority());
             if (time > 0) { //if theres move time re add
                 j.setCurrentJobLength(time);
                 j.setWaitTime(timer);
@@ -99,7 +110,7 @@ public class PriorityQueueSimulatorTester {
 
             timer++;
         }
-        averageWaitingTime = (int)(averageWaitingTime / size);
+        averageWaitingTime = (int) (averageWaitingTime / size);
         return new int[]{priorityChange, timer, averageWaitingTime};
     }
 

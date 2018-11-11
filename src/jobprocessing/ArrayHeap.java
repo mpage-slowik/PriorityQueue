@@ -8,7 +8,7 @@ import java.util.PriorityQueue;
  *
  * @author Max Page-Slowik
  * @author Jesse Silber
- * @param <E>
+ * @param <E> Any type that extends Comparable
  */
 public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
 
