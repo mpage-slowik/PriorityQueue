@@ -176,7 +176,7 @@ public class Job implements Comparable<Job>{
 
     @Override
     public int compareTo(Job o) {
-        if (this.getJobPriority() == o.getJobPriority()) {
+        if (this.getFinalPriority()== o.getFinalPriority()) {
             if (this.getEntryTime() < o.getEntryTime()) {
                 return 1;
             } else if (this.getEntryTime() > o.getEntryTime()) {
@@ -184,7 +184,7 @@ public class Job implements Comparable<Job>{
             } else {
                 return 0;
             }
-        } else if (this.getJobPriority() > o.getJobPriority()) {
+        } else if (this.getFinalPriority() > o.getFinalPriority()) {
             return 1;
         } else {
             return -1;

@@ -31,6 +31,7 @@ public class PriorityQueueSimulatorTester {
 
         long ellapsedTime = endTime - startTime;
 
+        //Print to file
         System.out.println("Current system time (cycles): " + numbers[1]);
         System.out.println("Total number of jobs executed: " + maxNumberOfJobs[0] + " jobs");
         System.out.println("Average process waiting time: " + numbers[2]+ " cycles");
@@ -52,7 +53,8 @@ public class PriorityQueueSimulatorTester {
             totalTime += jobLength;
             int jobPriority = (int) (Math.random() * 40) + 1;
             j.setJobPriority(jobPriority);
-            j.setEntryTime(i + 1);
+            j.setFinalPriority(jobPriority);
+            j.setEntryTime((i + 1));
             jobInputArray[i] = j;
         }
         return totalTime;
@@ -74,10 +76,12 @@ public class PriorityQueueSimulatorTester {
 
         while (pq.size() > 0) {
             Job j = pq.remove();
-            System.out.println(j.toString());
             int time = j.getCurrentJobLength();
-
             time--;
+                    System.out.println("Now executing "+ j.getJobName()+". Job length: "+
+                    j.getJobLength()+" cycles; Current remaining length: "+
+                    j.getCurrentJobLength()+" cycles; Initial priority: "+
+                    j.getJobPriority()+"; Current priority: "+j.getFinalPriority());
             if (time > 0) { //if theres move time re add
                 j.setCurrentJobLength(time);
                 j.setWaitTime(timer);
@@ -85,12 +89,14 @@ public class PriorityQueueSimulatorTester {
             } else { //if 0, dont re add its done
                 finishedJobs++;
                 j.setEndTime(timer);
+                //System.out.println(j.toString());
                 averageWaitingTime += timer;
             }
             if (finishedJobs % 30 == 0) {
                 starvedResource(pq);
                 priorityChange++;
             }
+
             timer++;
         }
         averageWaitingTime = (int)(averageWaitingTime / size);
@@ -106,7 +112,7 @@ public class PriorityQueueSimulatorTester {
                 temp = j;
             }
             pq.remove(temp);
-            temp.setJobPriority(1);
+            temp.setFinalPriority(1);
             pq.add(temp);
         }
     }
