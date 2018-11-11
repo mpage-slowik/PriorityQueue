@@ -21,9 +21,21 @@ public class PriorityQueueSimulatorTester {
 
         Job[] jobsInputArray = new Job[maxNumberOfJobs[0]];
         int totalTime = populateJobs(jobsInputArray);
+
+        long startTime = System.currentTimeMillis();
+
         populateQueue(jobsInputArray, arrh);
         //System.out.println(arrh.toString());
-        runCPU(arrh, maxNumberOfJobs[0]);
+        int[] numbers = runCPU(arrh, maxNumberOfJobs[0]);
+        long endTime = System.currentTimeMillis();
+
+        long ellapsedTime = endTime - startTime;
+
+        System.out.println("Current system time (cycles): " + numbers[1]);
+        System.out.println("Total number of jobs executed: " + maxNumberOfJobs[0] + " jobs");
+        System.out.println("Average process waiting time: " + numbers[2]+ " cycles");
+        System.out.println("Total number of priority changes: " + numbers[0]);
+        System.out.println("Actual system time needed to execute all jobs: " + ellapsedTime + " ms");
 
         //Instantiate Unsorted List
         //UnsortedList<Job> ul = new UnsortedList<>();
@@ -53,9 +65,12 @@ public class PriorityQueueSimulatorTester {
     }
 
     //after 30 jobs search for oldest job and increase priority to 1
-    private static void runCPU(ArrayHeap<Job> pq, int totalTime) {
+    private static int[] runCPU(ArrayHeap<Job> pq, int totalTime) {
         int finishedJobs = 1;
         int timer = totalTime;
+        int priorityChange = 0;
+        int averageWaitingTime = 0;
+        int size = pq.size();
 
         while (pq.size() > 0) {
             Job j = pq.remove();
@@ -63,7 +78,6 @@ public class PriorityQueueSimulatorTester {
             int time = j.getCurrentJobLength();
 
             time--;
-
             if (time > 0) { //if theres move time re add
                 j.setCurrentJobLength(time);
                 j.setWaitTime(timer);
@@ -71,12 +85,16 @@ public class PriorityQueueSimulatorTester {
             } else { //if 0, dont re add its done
                 finishedJobs++;
                 j.setEndTime(timer);
+                averageWaitingTime += timer;
             }
             if (finishedJobs % 30 == 0) {
                 starvedResource(pq);
+                priorityChange++;
             }
             timer++;
         }
+        averageWaitingTime = (int)(averageWaitingTime / size);
+        return new int[]{priorityChange, timer, averageWaitingTime};
     }
 
     private static void starvedResource(PriorityQueue<Job> pq) {
