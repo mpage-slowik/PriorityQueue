@@ -1,0 +1,13 @@
+﻿1)
+The big-O time complexity for the ArrayHeap, is worst case O(log(n)) for adding and removing due to the upheap and downheap sort in the heap. The upheap and downheap is needed to keep the highest priority value at the top of the list. 
+The big-O time complexity for the UnsortedList, is O(n^2) due to the fact that the smallest value needs to be found before a removal and then shifted in order to follow once the highest prioirty has been removed. For an add it can be added to the end of the unsorted list at O(1) due to the fact that the array keeps track of the end. 
+The big-omega for the array heap is Ω(1) for the add, because if the objects added to the array are in natural oreder then it will just be added to the end. For the remove the big-omega for the array heap is Ω(1) because if all values are the same then the best case is that the removal is done, the end is placed to the head then there is no downheap necessary. 
+The big omega for the unsorted list, the add would be Ω(1) because it is unsorted and the remove would be Ω(n) becuase once removed there would need to be a shift in order to keep the array.
+In terms of MaxNumberOfJobs the higher the value the worst the unsorted list becomes.
+
+2)
+The space complexity is directly corralated to whichever size of MaxNumberOfJobs being used, where n represents the value of MaxNumberOfJobs. Due to the fact that both versions use array as the backing data structure.
+
+3)
+There is a major performance difference between the two, array heap at worst case is O(log(n)) which isn't the best but it is better then O(n^2) which is the removal time for the unsorted list, because it needs to find the smallest value then shift every value in order to fill the location. The difference is exponential, log(2) is 1, 2^2 is 4, log(4) is 2, 4^2 is 16, log(8) is 3, 8^2 is 64, there is a major difference even when n is below 10. There is a exponential difference in terms of time between the two. The performance favors the array heap over the unsorted list due to the removal time.
+
