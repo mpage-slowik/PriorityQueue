@@ -1,0 +1,24 @@
+Array Heap
+Current system time (cycles): 3139
+Total number of jobs executed: 100 jobs
+Average process waiting time: 1556 cycles
+Total number of priority changes: 52
+Actual system time needed to execute all jobs: 941 ms
+Unsorted List
+Current system time (cycles): 3648
+Total number of jobs executed: 100 jobs
+Average process waiting time: 1847 cycles
+Total number of priority changes: 74
+Actual system time needed to execute all jobs: 1077 ms
+Array Heap
+Current system time (cycles): 33229
+Total number of jobs executed: 1000 jobs
+Average process waiting time: 17581 cycles
+Total number of priority changes: 1221
+Actual system time needed to execute all jobs: 14285 ms
+Unsorted List
+Current system time (cycles): 38325
+Total number of jobs executed: 1000 jobs
+Average process waiting time: 19612 cycles
+Total number of priority changes: 1226
+Actual system time needed to execute all jobs: 11142 ms

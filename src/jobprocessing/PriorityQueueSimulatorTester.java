@@ -9,60 +9,75 @@ import java.util.PriorityQueue;
  */
 public class PriorityQueueSimulatorTester {
 
-    private static final int[] maxNumberOfJobs = {100, 1000, 10000, 100000, 1000000};
-
+    private static final int[] maxNumberOfJobs = {100, 1000};
+    
     public static void run() {
-        //Instatiate Heap     
-        ArrayHeap<Job> arrh = new ArrayHeap<>();
+        StringBuilder sb = new StringBuilder();
 
-        Job[] jobsInputArray = new Job[maxNumberOfJobs[0]];
-        int totalTime = populateJobs(jobsInputArray);
+        for (int currLength : maxNumberOfJobs) {
+            //Instatiate Heap     
+            ArrayHeap<Job> arrh = new ArrayHeap<>();
 
-        long startTime = System.currentTimeMillis();
-        populateQueue(jobsInputArray, arrh);
+            Job[] jobsInputArray = new Job[currLength];
+            populateJobs(jobsInputArray);
 
-        int[] numbers = runCPU(arrh, maxNumberOfJobs[0]);
+            long startTime = System.currentTimeMillis();
+            populateQueue(jobsInputArray, arrh);
+            //run CPU
+            System.out.println("Array Heap");
+            int[] numbers = runCPU(arrh, currLength);
 
-        long endTime = System.currentTimeMillis();
-        long ellapsedTime = endTime - startTime;
+            long endTime = System.currentTimeMillis();
+            long ellapsedTime = endTime - startTime;
+            //Print to file
+            sb.append("Array Heap\r\n");
+            sb.append("Current system time (cycles): ").append(numbers[1]).append("\r\n");
+            sb.append("Total number of jobs executed: ").append(currLength).append(" jobs\r\n");
+            sb.append("Average process waiting time: ").append(numbers[2]).append(" cycles\r\n");
+            sb.append("Total number of priority changes: ").append(numbers[0]).append("\r\n");
+            sb.append("Actual system time needed to execute all jobs: ").append(ellapsedTime).append(" ms\r\n");
 
-        //Instantiate Unsorted List
-        UnsortedList<Job> ul = new UnsortedList<>();
+            //Instantiate Unsorted List
+            UnsortedList<Job> ul = new UnsortedList<>();
 
-        Job[] jobsInputArray2 = new Job[maxNumberOfJobs[0]];
-        int totalTime2 = populateJobs(jobsInputArray2);
+            Job[] jobsInputArray2 = new Job[currLength];
+            populateJobs(jobsInputArray2);
 
-        long startTime2 = System.currentTimeMillis();
-        populateQueue(jobsInputArray2, ul);
+            long startTime2 = System.currentTimeMillis();
+            populateQueue(jobsInputArray2, ul);
+            //run CPU
+            System.out.println("Unsorted List");
+            int[] numbers2 = runCPU(ul, currLength);
+            
+            long endTime2 = System.currentTimeMillis();
+            long ellapsedTime2 = endTime2 - startTime2;
 
-        int[] numbers2 = runCPU(ul, maxNumberOfJobs[0]);
-        long endTime2 = System.currentTimeMillis();
-        long ellapsedTime2 = endTime2 - startTime2;
-
-        //Print to file
-        System.out.println("Current system time (cycles): " + numbers2[1]);
-        System.out.println("Total number of jobs executed: " + maxNumberOfJobs[0] + " jobs");
-        System.out.println("Average process waiting time: " + numbers2[2] + " cycles");
-        System.out.println("Total number of priority changes: " + numbers2[0]);
-        System.out.println("Actual system time needed to execute all jobs: " + ellapsedTime + " ms");
+            //Print to file
+            sb.append("Unsorted List\r\n");
+            sb.append("Current system time (cycles): ").append(numbers2[1]).append("\r\n");
+            sb.append("Total number of jobs executed: ").append(currLength).append(" jobs\r\n");
+            sb.append("Average process waiting time: ").append(numbers2[2]).append(" cycles\r\n");
+            sb.append("Total number of priority changes: ").append(numbers2[0]).append("\r\n");
+            sb.append("Actual system time needed to execute all jobs: ").append(ellapsedTime2).append(" ms\r\n");
+            
+        }
+        Utilities.WriteToFile(sb.toString());
     }
 
-    private static int populateJobs(Job[] jobInputArray) {
-        int totalTime = 0;
-        for (int i = 0; i < maxNumberOfJobs[0]; i++) {
+    private static void populateJobs(Job[] jobInputArray) {
+
+        for (int i = 0; i < jobInputArray.length; i++) {
             Job j = new Job();
             j.setJobName("JOB_" + (i + 1));
             int jobLength = (int) (Math.random() * 70) + 1;
             j.setJobLength(jobLength);
             j.setCurrentJobLength(jobLength);
-            totalTime += jobLength;
             int jobPriority = (int) (Math.random() * 40) + 1;
             j.setJobPriority(jobPriority);
             j.setFinalPriority(jobPriority);
             j.setEntryTime((i + 1));
             jobInputArray[i] = j;
         }
-        return totalTime;
     }
 
     private static void populateQueue(Job[] jobInputArray, ArrayHeap<Job> pq) {
@@ -77,6 +92,8 @@ public class PriorityQueueSimulatorTester {
         }
     }
 
+    
+    
     //after 30 jobs search for oldest job and increase priority to 1
     private static int[] runCPU(PriorityQueue<Job> pq, int totalTime) {
         int finishedJobs = 1;

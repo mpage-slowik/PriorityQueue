@@ -102,10 +102,10 @@ public class ArrayHeap<E extends Comparable<E>> extends PriorityQueue {
     }
 
     private void upheap() {
-        for (int i = size - 1; i >= 0; i--) {
-            if (arr[i].compareTo(arr[i / 2]) < 0) {
-                E temp = arr[i / 2];
-                arr[i / 2] = arr[i];
+        for (int i = size - 1; i > 0; i--) {
+            if (arr[i].compareTo(arr[(int)Math.floor(i / 2)]) < 0) {
+                E temp = arr[(int)Math.floor(i / 2)];
+                arr[(int)Math.floor(i / 2)] = arr[i];
                 arr[i] = temp;
             }
         }
